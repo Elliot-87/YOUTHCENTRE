@@ -1,0 +1,77 @@
+{% extends "admin/base.html" %}
+
+{% block extrahead %}
+<style>
+.back-to-jobcentre {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-to-jobcentre:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.usertools {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .back-to-jobcentre {
+        margin-right: 0;
+        margin-bottom: 10px;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    
+    .usertools {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+</style>
+{% endblock %}
+
+{% block usertools %}
+{% if has_permission %}
+<div class="usertools">
+    <a href="{% url 'home' %}" class="back-to-jobcentre">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="flex-shrink: 0;">
+            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+        </svg>
+        Back to JobCentre
+    </a>
+    
+    {% block welcome-msg %}
+        {{ block.super }}
+    {% endblock %}
+    {% block userlinks %}
+        {{ block.super }}
+    {% endblock %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">JobCentre Administration</a>
+</h1>
+{% endblock %}

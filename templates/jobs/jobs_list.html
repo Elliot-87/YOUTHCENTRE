@@ -1,0 +1,115 @@
+{% load static %}
+{% load currency_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobcentre | Browse Jobs</title>
+  <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- ✅ Navbar -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold text-blue-600">Jobcentre</a>
+      <ul class="hidden md:flex space-x-6">
+        <li><a href="/" class="hover:text-blue-600">Home</a></li>
+        <li><a href="#" class="text-blue-600 font-semibold">Jobs</a></li>
+        <li><a href="/advisory/" class="hover:text-blue-600">Advisory</a></li>
+        <li><a href="/referrals/" class="hover:text-blue-600">Referrals</a></li>
+      </ul>
+      <div class="md:hidden">
+        <button id="menu-btn" class="text-gray-800 focus:outline-none">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🔍 Search Bar -->
+  <section class="bg-white py-6 shadow-sm sticky top-16 z-40">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row gap-4">
+      <input type="text" placeholder="Search job title or company..." 
+             class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <input type="text" placeholder="Location" 
+             class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <select class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <option>All Types</option>
+        <option>Full-time</option>
+        <option>Part-time</option>
+        <option>Remote</option>
+        <option>Internship</option>
+      </select>
+      <button class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+        Search
+      </button>
+    </div>
+  </section>
+
+  <!-- 💼 Jobs Listing -->
+  <main class="container mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8 text-center">Latest Job Opportunities</h1>
+
+    <div class="grid gap-6">
+      {% for job in jobs %}
+      <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <!-- Left: Job Info -->
+          <div>
+            <h2 class="text-2xl font-semibold text-gray-800">{{ job.title }}</h2>
+            <p class="text-gray-600">{{ job.company }} • {{ job.location }}</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              {% for tag in job.tags.all %}
+              <span class="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-medium rounded-full">
+                {{ tag.name }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Right: Meta -->
+          <div class="text-right">
+            <p class="text-lg font-semibold text-green-600">
+              {{ job.salary|default:"Negotiable" }}
+            </p>
+            <p class="text-sm text-gray-500">Posted {{ job.posted_at|timesince }} ago</p>
+            <a href="{% url 'job_detail' job.id %}" 
+               class="inline-block mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">
+              View Details →
+            </a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-gray-500">No jobs found. Try adjusting your filters.</p>
+      {% endfor %}
+    </div>
+
+    <!-- 📄 Pagination -->
+    <div class="mt-12 flex justify-center space-x-2">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Previous</a>
+      {% endif %}
+      <span class="px-4 py-2 bg-blue-600 text-white rounded">{{ page_obj.number }}</span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Next</a>
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- 📞 CTA -->
+  <section class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16 mt-12 text-center rounded-t-2xl">
+    <h2 class="text-3xl font-bold mb-4">Need career advice?</h2>
+    <p class="mb-6 text-lg">Visit our Advisory Centre for free resume reviews, interview prep, and referrals.</p>
+    <a href="/advisory/" class="px-8 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-lg hover:bg-yellow-500 transition">Explore Advisory</a>
+  </section>
+
+  <!-- 📌 Footer -->
+  <footer class="bg-white shadow-inner py-8 mt-8">
+    <div class="container mx-auto px-6 text-center text-gray-600">
+      &copy; {{ current_year }} Jobcentre. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

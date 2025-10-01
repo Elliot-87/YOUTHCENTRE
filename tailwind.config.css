@@ -1,0 +1,12 @@
+module.exports = {
+    content: [
+        '../../templates/**/*.html',
+        '../../jobs/templates/**/*.html', 
+        '../../blog/templates/**/*.html',
+        './src/**/*.js'
+    ],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+}

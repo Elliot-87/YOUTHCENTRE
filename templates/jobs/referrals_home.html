@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load currency_filters %}
+{% block title %}Referral Services - JobCentre{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Hero Section -->
+    <div class="text-center mb-12 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute -top-10 -left-10 w-20 h-20 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+        <div class="absolute -bottom-10 -right-10 w-20 h-20 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style="animation-delay: 2s;"></div>
+        
+        <h1 class="text-4xl font-bold text-gray-900 mb-4 relative">
+            Partner <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Referral</span> Services
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto relative">
+            Connect with trusted organizations for additional support services including training, counseling, and community resources.
+        </p>
+    </div>
+
+    <!-- Category Filters -->
+   <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-8 border border-white/50">
+  <h2 class="text-lg font-semibold text-gray-900 mb-4">Filter by Service Type</h2>
+
+  <div class="flex flex-wrap gap-3">
+    <!-- All Services Button -->
+    <a href="{% url 'referrals_home' %}" 
+       class="group relative inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 transform 
+              {% if not selected_category %}
+                bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg scale-105 ring-2 ring-blue-400 ring-offset-2
+              {% else %}
+                bg-gray-100 text-gray-800 hover:bg-white hover:text-blue-600 hover:shadow-md hover:scale-110 hover:ring-2 hover:ring-blue-400
+              {% endif %}">
+      All Services
+      {% if not selected_category %}
+        <i class="fas fa-check ml-2 text-xs"></i>
+      {% endif %}
+    </a>
+
+    <!-- Dynamic Filter Chips -->
+    {% for value, label in categories %}
+      <a href="{% url 'referrals_home' %}?category={{ value }}" 
+         class="group relative inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 transform 
+                {% if selected_category == value %}
+                  bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg scale-105 ring-2 ring-blue-400 ring-offset-2
+                {% else %}
+                  bg-gray-100 text-gray-800 hover:bg-white hover:text-blue-600 hover:shadow-md hover:scale-110 hover:ring-2 hover:ring-blue-400
+                {% endif %}">
+        {{ label }}
+        {% if selected_category == value %}
+          <i class="fas fa-check ml-2 text-xs"></i>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+
+    <!-- Partners Grid -->
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {% for partner in partners %}
+        <div class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/50 hover:shadow-2xl transition-all duration-500 card-hover">
+            <div class="p-6 relative">
+                <!-- Gradient accent bar -->
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-green-400 to-blue-500"></div>
+                
+                <div class="flex items-start justify-between mb-4 ml-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-green-100 to-blue-100 text-green-800 group-hover:from-green-200 group-hover:to-blue-200 transition-colors duration-300">
+                        {{ partner.get_category_display }}
+                    </span>
+                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center text-white text-sm font-bold group-hover:scale-110 transition-transform duration-300">
+                        {{ partner.name|first }}
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 ml-4 group-hover:text-gray-800 transition-colors duration-300">
+                    {{ partner.name }}
+                </h3>
+                <p class="text-gray-600 mb-4 ml-4 group-hover:text-gray-700 transition-colors duration-300">
+                    {{ partner.description|truncatewords:25 }}
+                </p>
+                
+                <div class="space-y-2 mb-4 ml-4">
+                    {% if partner.phone %}
+                    <div class="flex items-center text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors duration-300">
+                            <svg class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        {{ partner.phone }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if partner.email %}
+                    <div class="flex items-center text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors duration-300">
+                            <svg class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        {{ partner.email }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="flex space-x-3 ml-4">
+                    <a href="{% url 'referral_partner_detail' partner.id %}" 
+                       class="group/btn flex-1 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform group-hover:scale-105">
+                        View Details
+                        <i class="fas fa-arrow-right ml-2 group-hover/btn:translate-x-1 transition-transform duration-300"></i>
+                    </a>
+                    {% if partner.website %}
+                    <a href="{{ partner.website }}" target="_blank" 
+                       class="group/website inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 transform group-hover:scale-105">
+                        <svg class="h-4 w-4 mr-2 group-hover/website:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        Website
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50">
+            <div class="max-w-md mx-auto">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900">No partners available</h3>
+                <p class="mt-1 text-gray-500">
+                    {% if selected_category %}
+                    No partners found in this category. Try another filter.
+                    {% else %}
+                    Check back soon for our partner services.
+                    {% endif %}
+                </p>
+                {% if selected_category %}
+                <a href="{% url 'referrals_home' %}" class="mt-4 inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg hover:from-green-600 hover:to-blue-600 transition-all duration-300">
+                    Show All Services
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Stats Section -->
+    <div class="mt-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-8 text-white shadow-2xl">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="text-3xl font-bold mb-1">{{ partners|length }}+</div>
+                <div class="text-green-100 text-sm">Trusted Partners</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold mb-1">24/7</div>
+                <div class="text-green-100 text-sm">Support Available</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold mb-1">100%</div>
+                <div class="text-green-100 text-sm">Verified Services</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold mb-1">5K+</div>
+                <div class="text-green-100 text-sm">People Helped</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+</style>
+{% endblock %}

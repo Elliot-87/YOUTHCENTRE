@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load currency_filters %}
+{% block title %}{{ partner.name }} - JobCentre Referrals{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Back Button -->
+    <div class="mb-6">
+        <a href="{% url 'referrals_home' %}" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+            <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to All Partners
+        </a>
+    </div>
+
+    <!-- Partner Header -->
+    <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between">
+            <div class="flex-1">
+                <div class="flex items-center mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        {{ partner.get_category_display }}
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ partner.name }}</h1>
+                <p class="text-xl text-gray-600 mb-6">{{ partner.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partner Details -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+            <!-- Contact Information -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% if partner.phone %}
+                    <div class="flex items-start">
+                        <svg class="h-6 w-6 text-gray-400 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Phone</h3>
+                            <p class="text-gray-600">{{ partner.phone }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if partner.email %}
+                    <div class="flex items-start">
+                        <svg class="h-6 w-6 text-gray-400 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Email</h3>
+                            <a href="mailto:{{ partner.email }}" class="text-blue-600 hover:text-blue-800">{{ partner.email }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if partner.website %}
+                    <div class="flex items-start">
+                        <svg class="h-6 w-6 text-gray-400 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Website</h3>
+                            <a href="{{ partner.website }}" target="_blank" class="text-blue-600 hover:text-blue-800">{{ partner.website }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if partner.address %}
+                    <div class="flex items-start">
+                        <svg class="h-6 w-6 text-gray-400 mr-3 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Address</h3>
+                            <p class="text-gray-600">{{ partner.address }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Additional Information -->
+            {% if partner.contact_info %}
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Additional Information</h2>
+                <div class="prose max-w-none text-gray-700">
+                    {{ partner.contact_info|linebreaks }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                <div class="space-y-3">
+                    {% if partner.phone %}
+                    <a href="tel:{{ partner.phone }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                        <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        Call Now
+                    </a>
+                    {% endif %}
+                    
+                    {% if partner.email %}
+                    <a href="mailto:{{ partner.email }}" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Send Email
+                    </a>
+                    {% endif %}
+                    
+                    {% if partner.website %}
+                    <a href="{{ partner.website }}" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        Visit Website
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Service Category -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Service Category</h3>
+                <p class="text-gray-600">{{ partner.get_category_display }}</p>
+                <div class="mt-4">
+                    <a href="{% url 'referrals_home' %}?category={{ partner.category }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        View all {{ partner.get_category_display }} services →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
