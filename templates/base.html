@@ -100,7 +100,7 @@
                    class="{% if request.path == '/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200">
                     Home
                 </a>
-                <a href="{% url 'vacancy_list' %}" 
+                <a href="{% url 'jobs:vacancy_list' %}" 
                    class="{% if request.path == '/jobs/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200">
                     Jobs
                 </a>
@@ -153,7 +153,7 @@
     <div class="md:hidden hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
             <a href="{% url 'home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Home</a>
-            <a href="{% url 'vacancy_list' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Jobs</a>
+            <a href="{% url 'jobs:vacancy_list' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Jobs</a>
             <a href="{% url 'advisory_home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Advisory</a>
             <a href="{% url 'referrals_home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Referrals</a>
             <a href="/admin/" class="block px-3 py-2 text-base font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50">Post a Job</a>
