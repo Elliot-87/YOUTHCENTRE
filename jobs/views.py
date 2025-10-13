@@ -1,5 +1,82 @@
-from django.shortcuts import render, get_object_or_404
 from .models import Vacancy, AdvisoryArticle, AdvisoryCategory, ReferralPartner, ReferralRequest
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import VacancyForm
+from django.contrib.auth.decorators import login_required
+from accounts.models import EmployerProfile
+from django.http import HttpResponseForbidden
+from django.core.paginator import Paginator
+
+
+
+
+
+def vacancy_list(request):
+    vacancies = Vacancy.objects.all().order_by('-posted_date')
+    paginator = Paginator(vacancies, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'jobs/vacancy_list.html', {
+        'vacancies': page_obj,
+        'is_paginated': page_obj.has_other_pages(),
+        'page_obj': page_obj,
+    })
+
+
+def job_feed(request):
+    # timeline-style feed ordered by newest
+    vacancies = Vacancy.objects.filter(is_active=True).select_related("employer")
+    return render(request, "jobs/feed.html", {"vacancies": vacancies})
+
+def vacancy_detail(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    return render(request, "jobs/vacancy_detail.html", {"vacancy": vacancy})
+
+@login_required
+def create_vacancy(request):
+    # only allowed for approved employers
+    try:
+        profile = EmployerProfile.objects.get(user=request.user)
+    except EmployerProfile.DoesNotExist:
+        return HttpResponseForbidden("You must be an employer to post jobs.")
+
+    if not profile.approved:
+        return HttpResponseForbidden("Your employer account is not approved yet.")
+
+    if request.method == "POST":
+        form = VacancyForm(request.POST)
+        if form.is_valid():
+            vac = form.save(commit=False)
+            vac.employer = request.user
+            vac.save()
+            return redirect("job_feed")
+    else:
+        form = VacancyForm()
+    return render(request, "jobs/vacancy_form.html", {"form": form, "create": True})
+
+@login_required
+def edit_vacancy(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    if vacancy.employer != request.user:
+        return HttpResponseForbidden("You can only edit your own vacancy.")
+    if request.method == "POST":
+        form = VacancyForm(request.POST, instance=vacancy)
+        if form.is_valid():
+            form.save()
+            return redirect(vacancy.get_absolute_url())
+    else:
+        form = VacancyForm(instance=vacancy)
+    return render(request, "jobs/vacancy_form.html", {"form": form, "create": False, "vacancy": vacancy})
+
+@login_required
+def delete_vacancy(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    if vacancy.employer != request.user:
+        return HttpResponseForbidden("You can only delete your own vacancy.")
+    if request.method == "POST":
+        vacancy.delete()
+        return redirect("job_feed")
+    return render(request, "jobs/vacancy_confirm_delete.html", {"vacancy": vacancy})
+
 
 # ===============================
 # 🏠 HOME VIEW

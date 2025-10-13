@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="feed-container" style="max-width:800px;margin:0 auto;">
+  {% for job in vacancies %}
+    {% include 'jobs/vacancy_card.html' with job=job %}
+  {% empty %}
+    <p>No vacancies available yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

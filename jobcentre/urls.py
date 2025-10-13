@@ -12,6 +12,7 @@ urlpatterns = [
 
     # ✅ Jobs URLs are namespaced
     path("jobs/", include(('jobs.urls', 'jobs'), namespace='jobs')),
+    path("accounts/", include("accounts.urls")),
 
     # Advisory URLs
     path("advisory/", advisory_home, name="advisory_home"),

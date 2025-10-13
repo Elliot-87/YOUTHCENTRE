@@ -1,154 +1,126 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 {% load currency_filters %}
-{% block title %}Browse Job Vacancies - JobCentre{% endblock %}
+{% block title %}JobCentre Timeline{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-{% if vacancy.attachment %}
-    <div class="mb-4">
-        {% if vacancy.is_image %}
-            <a href="{% url 'jobs:vacancy_detail' vacancy.pk %}">
-                <img src="{{ vacancy.attachment.url }}" 
-                     alt="{{ vacancy.title }}" 
-                     class="rounded-lg mx-auto max-h-48 object-contain">
-            </a>
-        {% elif vacancy.is_pdf %}
-            <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-                <iframe src="{{ vacancy.attachment.url }}" 
-                        width="100%" height="300px" 
-                        style="border:none;">
-                </iframe>
-            </div>
-        {% else %}
-            <a href="{{ vacancy.attachment.url }}" target="_blank" 
-               class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 hover:underline">
-                ⬇ Download Attachment
-            </a>
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+  <!-- Page Header -->
+  <div class="text-center mb-10">
+    <h1 class="text-3xl font-bold text-gray-900">JobCentre Timeline</h1>
+    <p class="mt-2 text-lg text-gray-600">Scroll through the latest opportunities and discover your next move</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-10 border border-white/50">
+    <form method="get" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label for="job_type" class="block text-sm font-medium text-gray-700 mb-2">Job Type</label>
+        <select name="job_type" id="job_type" 
+                class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          <option value="">All Types</option>
+          {% for value, label in job_types %}
+            <option value="{{ value }}" {% if request.GET.job_type == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="location" class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+        <input type="text" name="location" id="location" value="{{ request.GET.location }}" 
+               placeholder="Enter location" 
+               class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+      </div>
+      <div class="flex items-end">
+        <button type="submit" 
+                class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          Filter Jobs
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Timeline Feed -->
+  <div class="space-y-8">
+    {% for vacancy in vacancies %}
+    <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
+      
+      <!-- Employer + Posted Date -->
+      <div class="flex items-center mb-4">
+        <img src="{{ vacancy.employer.profile_image.url|default:'/static/img/placeholder.png' }}"
+             alt="{{ vacancy.company }}" 
+             class="w-10 h-10 rounded-full object-cover border border-gray-200 mr-3">
+        <div>
+          <h3 class="text-sm font-semibold text-gray-900">{{ vacancy.company }}</h3>
+          <p class="text-xs text-gray-500">{{ vacancy.posted_date|timesince }} ago</p>
+        </div>
+      </div>
+
+      <!-- Job Info -->
+      <a href="{{ vacancy.get_absolute_url }}">
+        <h2 class="text-lg font-bold text-blue-700 mb-1">{{ vacancy.title }}</h2>
+      </a>
+      <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ vacancy.description|truncatewords:30 }}</p>
+
+      <!-- Meta Info -->
+      <div class="flex flex-wrap text-sm text-gray-500 mb-4 space-x-4">
+        <span>📍 {{ vacancy.location }}</span>
+        {% if vacancy.salary %}
+          <span>💰 {{ vacancy.salary|format_zar }}</span>
         {% endif %}
-    </div>
-{% endif %}
+        <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-100">{{ vacancy.get_job_type_display }}</span>
+      </div>
 
-    <!-- Page Header -->
-    <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-gray-900">Browse Job Vacancies</h1>
-        <p class="mt-2 text-lg text-gray-600">Find your next career opportunity from our curated listings</p>
-    </div>
+      <!-- Attachment Preview -->
+      {% if vacancy.attachment %}
+        {% if vacancy.is_image %}
+          <img src="{{ vacancy.attachment.url }}" alt="{{ vacancy.title }}" 
+               class="rounded-lg mx-auto mb-4 max-h-64 object-contain border">
+        {% elif vacancy.is_pdf %}
+          <iframe src="{{ vacancy.attachment.url }}" class="w-full h-60 rounded-lg border mb-4" allowfullscreen></iframe>
+        {% else %}
+          <a href="{{ vacancy.attachment.url }}" target="_blank" 
+             class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 hover:underline mb-4">
+            ⬇ Download Attachment
+          </a>
+        {% endif %}
+      {% endif %}
 
-    <!-- Filters -->
-    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-8 border border-white/50">
-        <form method="get" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-                <label for="job_type" class="block text-sm font-medium text-gray-700 mb-2">Job Type</label>
-                <select name="job_type" id="job_type" 
-                        class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                    <option value="">All Types</option>
-                    {% for value, label in job_types %}
-                        <option value="{{ value }}" {% if request.GET.job_type == value %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label for="location" class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                <input type="text" name="location" id="location" value="{{ request.GET.location }}" 
-                       placeholder="Enter location" 
-                       class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
-            </div>
-            <div class="flex items-end">
-                <button type="submit" 
-                        class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Filter Jobs
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Job Listings -->
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-
-
-
-        
-        {% for vacancy in vacancies %}
-        <div class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 text-center hover:shadow-2xl transition-all duration-500 border border-white/50 shadow-lg hover:scale-105">
-
-            <!-- Job Type & Posted Date -->
-            {% if not vacancy.is_upload_only %}
-            <div class="flex items-center justify-between mb-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
-                            {% if vacancy.job_type == 'full_time' %}bg-green-100 text-green-800
-                            {% elif vacancy.job_type == 'part_time' %}bg-blue-100 text-blue-800
-                            {% elif vacancy.job_type == 'contract' %}bg-purple-100 text-purple-800
-                            {% else %}bg-gray-100 text-gray-800{% endif %}">
-                    {{ vacancy.get_job_type_display }}
-                </span>
-                <span class="text-sm text-gray-500">{{ vacancy.posted_date|timesince }} ago</span>
-            </div>
-            {% endif %}
-
-            <!-- Title, Company, Location -->
-            {% if not vacancy.is_upload_only %}
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ vacancy.title }}</h3>
-                <p class="text-gray-600 font-medium mb-2">{{ vacancy.company }}</p>
-                <div class="flex justify-center items-center text-gray-500 mb-4">
-                    <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                    </svg>
-                    <span>{{ vacancy.location }}</span>
-                </div>
-
-                <!-- Salary -->
-                {% if vacancy.salary %}
-                <div class="mb-4">
-                    <span class="text-lg font-bold text-gray-900">{{ vacancy.salary|format_zar }}</span>
-                </div>
-                {% endif %}
-
-                <!-- Description -->
-                <p class="text-gray-600 text-sm mb-4">{{ vacancy.description|truncatewords:20 }}</p>
-            {% endif %}
-
-            <!-- Attachment Display (PDF/Image) -->
-            {% if vacancy.attachment %}
-                <div class="mb-4">
-                    {% if vacancy.is_image %}
-                        <a href="{{ vacancy.get_absolute_url }}">
-                            <img src="{{ vacancy.attachment.url }}" 
-                                 alt="{{ vacancy.title|default:'Uploaded Job' }}" 
-                                 class="rounded-lg mx-auto max-h-48 object-contain">
-                        </a>
-                    {% elif vacancy.is_pdf %}
-                        <a href="{{ vacancy.attachment.url }}" target="_blank" 
-                           class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 hover:underline">
-                            📄 View PDF
-                        </a>
-                    {% else %}
-                        <a href="{{ vacancy.attachment.url }}" target="_blank" 
-                           class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 hover:underline">
-                            ⬇ Download Attachment
-                        </a>
-                    {% endif %}
-                </div>
-            {% endif %}
-
-            <!-- CTA Button -->
-            <a href="{{ vacancy.get_absolute_url }}" 
-               class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
-                View Details
-            </a>
+      <!-- Actions -->
+      <div class="flex justify-between items-center mt-3 text-sm">
+        <a href="{{ vacancy.get_absolute_url }}" 
+           class="text-blue-600 hover:text-blue-800 font-medium">View Details</a>
+        <div class="space-x-3">
+          <button class="text-gray-500 hover:text-red-600">❤️ Save</button>
+          <button class="text-gray-500 hover:text-blue-600">🔗 Share</button>
         </div>
-        {% empty %}
-        <div class="col-span-full text-center py-12">
-            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <h3 class="mt-2 text-lg font-medium text-gray-900">No vacancies found</h3>
-            <p class="mt-1 text-gray-500">Try adjusting your filters or check back later for new opportunities.</p>
-        </div>
-        {% endfor %}
-
+      </div>
     </div>
+    {% empty %}
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <h3 class="mt-2 text-lg font-medium text-gray-900">No vacancies found</h3>
+      <p class="mt-1 text-gray-500">Try adjusting your filters or check back later.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+  <div class="flex justify-center mt-8 space-x-4">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" 
+         class="px-4 py-2 text-sm text-blue-600 hover:underline">Previous</a>
+    {% endif %}
+    <span class="px-4 py-2 text-gray-600">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" 
+         class="px-4 py-2 text-sm text-blue-600 hover:underline">Next</a>
+    {% endif %}
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

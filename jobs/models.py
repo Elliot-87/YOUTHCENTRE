@@ -5,6 +5,30 @@ from django.core.validators import FileExtensionValidator
 from django.core.exceptions import ValidationError
 import os
 
+
+
+
+
+class Vacancy(models.Model):
+    employer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vacancies")
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    location = models.CharField(max_length=200, blank=True)
+    salary = models.CharField(max_length=100, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.title} - {self.employer.username}"
+
+    def get_absolute_url(self):
+        return reverse("vacancy_detail", args=[self.pk])
+
+
 # ----------------------------
 # Helper Validators
 # ----------------------------

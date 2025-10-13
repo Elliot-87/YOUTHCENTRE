@@ -1,0 +1,19 @@
+<div class="vacancy-card" style="background:#fff;border:1px solid #eee;padding:14px;margin-bottom:12px;border-radius:8px;">
+  <div class="header" style="display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h3 style="margin:0;font-size:18px;"><a href="{{ job.get_absolute_url }}">{{ job.title }}</a></h3>
+      <small style="color:#666">{{ job.location }} · posted by {{ job.employer.username }} · {{ job.created_at|date:"M d, Y H:i" }}</small>
+    </div>
+    <div>
+      {% if user.is_authenticated and job.employer == user %}
+        <a href="{% url 'edit_vacancy' job.pk %}">Edit</a> |
+        <a href="{% url 'delete_vacancy' job.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+  <p style="margin-top:10px;color:#333;">{{ job.description|linebreaksbr|truncatechars:400 }}</p>
+  <div style="margin-top:8px;">
+    {% if job.salary %}<strong>Salary:</strong> {{ job.salary }}{% endif %}
+    <a href="{{ job.get_absolute_url }}" style="float:right;">View details</a>
+  </div>
+</div>

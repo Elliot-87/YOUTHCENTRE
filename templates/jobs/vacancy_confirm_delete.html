@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:700px;margin:0 auto;">
+  <h2>Delete Vacancy</h2>
+  <p>Are you sure you want to delete "{{ vacancy.title }}"?</p>
+  <form method="post">{% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{{ vacancy.get_absolute_url }}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
