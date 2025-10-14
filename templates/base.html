@@ -71,22 +71,20 @@
 </head>
 <body class="bg-gray-50 font-sans">
     <!-- Navigation -->
-   <nav class="bg-white shadow-lg border-b border-blue-600">
+   <!-- Alpine.js (add this once in your base template, inside <head> or before </body>) -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<nav x-data="{ open: false }" class="bg-white shadow-lg border-b border-blue-600">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <!-- Left Side - Logo & Business Name -->
+
+            <!-- Left: Logo + Business Name -->
             <div class="flex items-center">
-                <div class="flex-shrink-0 flex items-center space-x-4">
-                    <!-- Logo Container --
-{% load static %}
-<div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow-lg overflow-hidden">
-    <img src="{% static 'admin/images/logo.png' %}" 
-         alt="JobCentre Logo" 
-         class="w-10 h-10 object-contain" 
-         style="max-width: 100%; max-height: 100%; display: block;">
-</div>-->
-                  
-                    <!-- Business Name with more space -->
+                <div class="flex-shrink-0 flex items-center space-x-3">
+                    {% load static %}
+                    <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow-lg overflow-hidden">
+                        <img src="{% static 'admin/images/logo.png' %}" alt="JobCentre Logo" class="w-10 h-10 object-contain">
+                    </div>
                     <div class="flex flex-col">
                         <span class="text-2xl font-bold text-gray-900 leading-tight">BCS</span>
                         <span class="text-xs text-blue-600 font-medium tracking-wider -mt-1">JOBCENTRE</span>
@@ -94,72 +92,78 @@
                 </div>
             </div>
 
-            <!-- Center - Navigation Links (Now on the right) -->
+            <!-- Center: Navigation (hidden on mobile) -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="{% url 'home' %}" 
-                   class="{% if request.path == '/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200">
+                <a href="{% url 'home' %}"
+                   class="{% if request.path == '/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">
                     Home
                 </a>
-                <a href="{% url 'jobs:vacancy_list' %}" 
-                   class="{% if request.path == '/jobs/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200">
+                <a href="{% url 'jobs:vacancy_list' %}"
+                   class="{% if request.path == '/jobs/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">
                     Jobs
                 </a>
-                <a href="{% url 'advisory_home' %}" 
-                   class="{% if request.path == '/advisory/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200">
+                <a href="{% url 'advisory_home' %}"
+                   class="{% if request.path == '/advisory/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">
                     Advisory
                 </a>
-                <a href="{% url 'referrals_home' %}" 
-                   class="{% if request.path == '/referrals/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors duration-200">
+                <a href="{% url 'referrals_home' %}"
+                   class="{% if request.path == '/referrals/' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">
                     Referrals
                 </a>
             </div>
 
-            <!-- Right Side - Action Buttons -->
+            <!-- Right: Actions + Mobile toggle -->
             <div class="flex items-center space-x-4">
-                <!-- Post a Job Button -->
+                <!-- Post a Job -->
                 <div class="hidden sm:block">
-                    <a href="/admin/" class="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <a href="/admin/"
+                       class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-blue-600 shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                         </svg>
                         Post a Job
                     </a>
                 </div>
-                
-                <!-- Admin Login -->
-                <div class="flex items-center">
-                    <a href="/admin/" class="bg-white p-2 rounded-full text-gray-400 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        <span class="sr-only">Admin Login</span>
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                    </a>
-                </div>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="bg-white p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
+                <!-- Admin Login Icon -->
+                <a href="/admin/"
+                   class="bg-white p-2 rounded-full text-gray-400 hover:text-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+                    <span class="sr-only">Admin Login</span>
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button @click="open = !open"
+                        class="md:hidden bg-white p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    <span class="sr-only">Open main menu</span>
+                    <svg x-show="!open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg x-show="open" x-cloak class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Mobile menu, show/hide based on menu state -->
-    <div class="md:hidden hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-            <a href="{% url 'home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Home</a>
-            <a href="{% url 'jobs:vacancy_list' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Jobs</a>
-            <a href="{% url 'advisory_home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Advisory</a>
-            <a href="{% url 'referrals_home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Referrals</a>
-            <a href="/admin/" class="block px-3 py-2 text-base font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50">Post a Job</a>
-        </div>
+    <!-- Mobile Dropdown Menu -->
+    <div x-show="open" x-transition
+         class="md:hidden bg-white border-t border-gray-200 px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="{% url 'home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+        <a href="{% url 'jobs:vacancy_list' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Jobs</a>
+        <a href="{% url 'advisory_home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Advisory</a>
+        <a href="{% url 'referrals_home' %}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Referrals</a>
+        <a href="/admin/" class="block px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50">Post a Job</a>
     </div>
 </nav>
+
 
     <!-- Main Content -->
     <main>
