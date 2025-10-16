@@ -6,19 +6,22 @@
 {% block content %}
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-  <!-- Page Header -->
-  <div class="text-center mb-10">
-    <h1 class="text-3xl font-bold text-gray-900">JobCentre Timeline</h1>
-    <p class="mt-2 text-lg text-gray-600">Scroll through the latest opportunities and discover your next move</p>
+  <!-- Page Header - 2026 Social Media Style -->
+  <div class="text-center mb-12">
+    <div class="relative inline-block">
+      <h1 class="text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">JobCentre Timeline</h1>
+      <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+    </div>
+    <p class="mt-6 text-lg text-gray-600 font-medium">Scroll through the latest opportunities and discover your next move</p>
   </div>
 
-  <!-- Filters -->
-  <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-10 border border-white/50">
-    <form method="get" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <!-- Filters - Glass Morphism -->
+  <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-6 mb-12 border border-white/60 shadow-blue-100/50">
+    <form method="get" class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <div>
-        <label for="job_type" class="block text-sm font-medium text-gray-700 mb-2">Job Type</label>
+        <label for="job_type" class="block text-sm font-semibold text-gray-700 mb-3">Job Type</label>
         <select name="job_type" id="job_type" 
-                class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                class="w-full border-gray-200 rounded-xl shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 py-3 px-4 bg-white/50 backdrop-blur-sm transition-all duration-200">
           <option value="">All Types</option>
           {% for value, label in job_types %}
             <option value="{{ value }}" {% if request.GET.job_type == value %}selected{% endif %}>{{ label }}</option>
@@ -26,99 +29,153 @@
         </select>
       </div>
       <div>
-        <label for="location" class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+        <label for="location" class="block text-sm font-semibold text-gray-700 mb-3">Location</label>
         <input type="text" name="location" id="location" value="{{ request.GET.location }}" 
                placeholder="Enter location" 
-               class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+               class="w-full border-gray-200 rounded-xl shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 py-3 px-4 bg-white/50 backdrop-blur-sm transition-all duration-200">
       </div>
       <div class="flex items-end">
         <button type="submit" 
-                class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          Filter Jobs
+                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg shadow-blue-500/25">
+          🔍 Filter Jobs
         </button>
       </div>
     </form>
   </div>
 
-  <!-- Timeline Feed -->
-  <div class="space-y-8">
+  <!-- Timeline Feed - Social Media Cards -->
+  <div class="space-y-6">
     {% for vacancy in vacancies %}
-    <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
+    <div class="group bg-white/90 backdrop-blur-sm rounded-3xl shadow-lg p-6 border border-gray-100/50 hover:shadow-2xl hover:border-blue-200/50 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
       
-      <!-- Employer + Posted Date -->
-      <div class="flex items-center mb-4">
+<!-- Gradient Accent -->
+    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-blue-500 to-purple-500"></div>
+    
+    <!-- Employer + Posted Date -->
+    <div class="flex items-center mb-5">
+      <div class="relative">
         <img src="{{ vacancy.employer.profile_image.url|default:'/static/img/placeholder.png' }}"
              alt="{{ vacancy.company }}" 
-             class="w-10 h-10 rounded-full object-cover border border-gray-200 mr-3">
-        <div>
-          <h3 class="text-sm font-semibold text-gray-900">{{ vacancy.company }}</h3>
-          <p class="text-xs text-gray-500">{{ vacancy.posted_date|timesince }} ago</p>
-        </div>
+             class="w-12 h-12 rounded-2xl object-cover border-2 border-white shadow-lg mr-4">
+        <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
       </div>
-
-      <!-- Job Info -->
-      <a href="{{ vacancy.get_absolute_url }}">
-        <h2 class="text-lg font-bold text-blue-700 mb-1">{{ vacancy.title }}</h2>
-      </a>
-      <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ vacancy.description|truncatewords:30 }}</p>
-
-      <!-- Meta Info -->
-      <div class="flex flex-wrap text-sm text-gray-500 mb-4 space-x-4">
-        <span>📍 {{ vacancy.location }}</span>
-        {% if vacancy.salary %}
-          <span>💰 {{ vacancy.salary|format_zar }}</span>
-        {% endif %}
-        <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-100">{{ vacancy.get_job_type_display }}</span>
+      <div class="flex-1">
+        <h3 class="text-base font-bold text-gray-900">{{ vacancy.company }}</h3>
+        <p class="text-sm text-gray-500 flex items-center">
+          <span class="w-1 h-1 bg-gray-400 rounded-full mr-2"></span>
+          {{ vacancy.posted_date|timesince }} ago
+        </p>
       </div>
+      <button class="text-gray-400 hover:text-red-500 transition-colors duration-200 p-2 rounded-xl hover:bg-red-50">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+        </svg>
+      </button>
+    </div>
 
-      <!-- Attachment Preview -->
-      {% if vacancy.attachment %}
+    <!-- Job Info -->
+    <a href="{{ vacancy.get_absolute_url }}" class="block mb-3">
+      <h2 class="text-xl font-black text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-200">{{ vacancy.title }}</h2>
+    </a>
+    <p class="text-gray-600 mb-4 leading-relaxed line-clamp-3">{{ vacancy.description|truncatewords:30 }}</p>
+
+    <!-- Meta Info - Enhanced Tags -->
+    <div class="flex flex-wrap items-center gap-3 mb-5">
+      <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
+        📍 {{ vacancy.location }}
+      </span>
+      {% if vacancy.salary %}
+        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-700">
+          💰 {{ vacancy.salary|format_zar }}
+        </span>
+      {% endif %}
+      <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-purple-100 text-purple-700">
+        {{ vacancy.get_job_type_display }}
+      </span>
+    </div>
+
+    <!-- Attachment Preview - Enhanced -->
+    {% if vacancy.attachment %}
+      <div class="mb-5 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
         {% if vacancy.is_image %}
           <img src="{{ vacancy.attachment.url }}" alt="{{ vacancy.title }}" 
-               class="rounded-lg mx-auto mb-4 max-h-64 object-contain border">
+               class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
         {% elif vacancy.is_pdf %}
-          <iframe src="{{ vacancy.attachment.url }}" class="w-full h-60 rounded-lg border mb-4" allowfullscreen></iframe>
+          <div class="relative h-64 bg-gray-50 flex items-center justify-center">
+            <iframe src="{{ vacancy.attachment.url }}" class="w-full h-full" allowfullscreen></iframe>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+          </div>
         {% else %}
           <a href="{{ vacancy.attachment.url }}" target="_blank" 
-             class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600 hover:underline mb-4">
-            ⬇ Download Attachment
+             class="flex items-center justify-center p-6 bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+            <div class="text-center">
+              <div class="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                <span class="text-white text-lg">⬇</span>
+              </div>
+              <span class="text-blue-600 font-semibold">Download Attachment</span>
+            </div>
           </a>
         {% endif %}
-      {% endif %}
+      </div>
+    {% endif %}
 
-      <!-- Actions -->
-      <div class="flex justify-between items-center mt-3 text-sm">
-        <a href="{{ vacancy.get_absolute_url }}" 
-           class="text-blue-600 hover:text-blue-800 font-medium">View Details</a>
-        <div class="space-x-3">
-          <button class="text-gray-500 hover:text-red-600">❤️ Save</button>
-          <button class="text-gray-500 hover:text-blue-600">🔗 Share</button>
-        </div>
+    <!-- Actions - Social Media Style -->
+    <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+      <a href="{{ vacancy.get_absolute_url }}" 
+         class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg shadow-blue-500/25">
+        View Details
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+      <div class="flex space-x-4">
+        <button class="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors duration-200 p-2 rounded-xl hover:bg-red-50">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+          <span class="text-sm font-medium">Save</span>
+        </button>
+        <button class="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors duration-200 p-2 rounded-xl hover:bg-blue-50">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+          </svg>
+          <span class="text-sm font-medium">Share</span>
+        </button>
       </div>
     </div>
-    {% empty %}
-    <div class="text-center py-12">
-      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  </div>
+  {% empty %}
+  <!-- Empty State - Enhanced -->
+  <div class="text-center py-16 bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-100/50">
+    <div class="w-24 h-24 bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+      <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
       </svg>
-      <h3 class="mt-2 text-lg font-medium text-gray-900">No vacancies found</h3>
-      <p class="mt-1 text-gray-500">Try adjusting your filters or check back later.</p>
     </div>
-    {% endfor %}
+    <h3 class="text-2xl font-black text-gray-900 mb-3">No vacancies found</h3>
+    <p class="text-gray-600 max-w-md mx-auto">Try adjusting your filters or check back later for new opportunities.</p>
   </div>
+  {% endfor %}
+</div>
 
-  <!-- Pagination -->
+  <!-- Pagination - Enhanced -->
   {% if is_paginated %}
-  <div class="flex justify-center mt-8 space-x-4">
+  <div class="flex justify-center mt-12 space-x-3">
     {% if page_obj.has_previous %}
       <a href="?page={{ page_obj.previous_page_number }}" 
-         class="px-4 py-2 text-sm text-blue-600 hover:underline">Previous</a>
+         class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 rounded-xl font-semibold text-gray-700 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 transform hover:-translate-y-0.5">
+        ← Previous
+      </a>
     {% endif %}
-    <span class="px-4 py-2 text-gray-600">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    <span class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
     {% if page_obj.has_next %}
       <a href="?page={{ page_obj.next_page_number }}" 
-         class="px-4 py-2 text-sm text-blue-600 hover:underline">Next</a>
+         class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 rounded-xl font-semibold text-gray-700 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 transform hover:-translate-y-0.5">
+        Next →
+      </a>
     {% endif %}
   </div>
   {% endif %}
