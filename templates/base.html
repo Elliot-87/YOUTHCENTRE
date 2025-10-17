@@ -65,9 +65,91 @@
     50% { opacity: 1; transform: scale(1.2); }
 }
 
+body{
+    background: turquoise;
+}
+
+        /* Social Stack Styles */
+        .social-stack {
+            position: fixed;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .facebook-icon:hover { background: rgba(59, 89, 152, 0.3); }
+        .twitter-icon:hover { background: rgba(29, 161, 242, 0.3); }
+        .linkedin-icon:hover { background: rgba(40, 103, 178, 0.3); }
+        .instagram-icon:hover { background: rgba(225, 48, 108, 0.3); }
+        .whatsapp-icon:hover { background: rgba(37, 211, 102, 0.3); }
+
+        /* Hero Section Styles for context */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+
+
+        
 
 </style>
-
+ <script>
+        // Optional: Add some interactive effects
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.15) translateX(-5px)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </head>
 <body class="bg-gray-50 font-sans bg-blue-100">
     <!-- Navigation -->
@@ -168,6 +250,10 @@
         <a href="/admin/" class="block px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50">Post a Job</a>
     </div>
 </nav>
+
+
+
+
 
 
     <!-- Main Content -->
