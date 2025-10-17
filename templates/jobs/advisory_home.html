@@ -4,128 +4,200 @@
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Hero Section -->
-    <div class="text-center mb-12 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute -top-10 -left-10 w-20 h-20 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-        <div class="absolute -bottom-10 -right-10 w-20 h-20 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style="animation-delay: 2s;"></div>
+    <!-- Hero Section - 2026 Social Media Style -->
+    <div class="text-center mb-16 relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute -top-20 -left-20 w-40 h-40 bg-blue-300/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse"></div>
+        <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-300/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-pink-300/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
         
-        <h1 class="text-4xl font-bold text-gray-900 mb-4 relative">
-            Career <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Advisory</span> Center
-        </h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto relative">
-            Expert guidance to help you navigate your career path, from resume writing to interview preparation and career planning.
-        </p>
+        <!-- Enhanced Header -->
+        <div class="relative">
+            <div class="inline-flex items-center px-6 py-3 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 text-blue-700 text-sm font-bold mb-8 shadow-2xl">
+                <div class="w-2 h-2 bg-green-400 rounded-full mr-3 animate-ping"></div>
+                AI-Powered Career Guidance
+            </div>
+            
+            <h1 class="text-5xl font-black text-gray-900 mb-6">
+                Career <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Advisory</span> Center
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
+                Expert guidance to help you navigate your career path, from resume writing to interview preparation and career planning.
+            </p>
+        </div>
     </div>
 
-    <!-- Categories Grid -->
-    <div class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Browse by Category</h2>
+    <!-- Categories Grid - 2026 Enhanced -->
+    <div class="mb-16">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-black text-gray-900 flex items-center">
+                <svg class="w-8 h-8 mr-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                Browse by Category
+            </h2>
+            <div class="text-sm text-gray-500 font-medium">
+                {{ categories|length }} categories available
+            </div>
+        </div>
+        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for category in categories %}
             <a href="{% url 'advisory_category' category.id %}" 
-               class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 text-center hover:shadow-2xl transition-all duration-500 border border-white/50 shadow-lg hover:scale-105 card-hover">
-                <!-- Hover effect background -->
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+               class="group relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 text-center hover:shadow-3xl transition-all duration-500 border border-white/60 hover:border-blue-200/50 hover:-translate-y-3 card-hover">
+                <!-- Hover gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div class="relative z-10">
-                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{{ category.icon }}</div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-800">{{ category.name }}</h3>
-                    <p class="text-gray-600 text-sm group-hover:text-gray-700">{{ category.description|truncatewords:15 }}</p>
+                    <!-- Animated Icon -->
+                    <div class="text-4xl mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 floating">
+                        {{ category.icon }}
+                    </div>
+                    
+                    <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-gray-800 transition-colors duration-300">
+                        {{ category.name }}
+                    </h3>
+                    <p class="text-gray-600 text-base group-hover:text-gray-700 transition-colors duration-300 leading-relaxed">
+                        {{ category.description|truncatewords:15 }}
+                    </p>
+                    
+                    <!-- Hover indicator -->
+                    <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl text-sm font-bold shadow-lg">
+                            Explore
+                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </a>
             {% endfor %}
         </div>
     </div>
 
-    <!-- Featured Articles -->
-    <div>
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">Featured Articles</h2>
-            <a href="#" class="group text-blue-600 hover:text-blue-800 font-medium transition-all duration-300 flex items-center gap-2">
+    <!-- Featured Articles - 2026 Social Media Style -->
+    <div class="mb-16">
+        <div class="flex justify-between items-center mb-10">
+            <div>
+                <h2 class="text-3xl font-black text-gray-900 mb-2">Featured Articles</h2>
+                <p class="text-gray-600 font-medium">Latest career insights and expert advice</p>
+            </div>
+            <a href="#" class="group relative inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl font-bold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105">
                 View All Articles
-                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
+                <svg class="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
             </a>
         </div>
         
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {% for article in featured_articles %}
-            <div class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-white/50 hover:shadow-2xl transition-all duration-500 card-hover">
+            <div class="group bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/60 hover:shadow-3xl transition-all duration-500 hover:-translate-y-3 relative">
+                <!-- Gradient accent bar -->
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-blue-500 to-purple-500 group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-500"></div>
+                
                 {% if article.featured_image %}
-                <div class="overflow-hidden">
+                <div class="overflow-hidden relative">
                     <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" 
                          class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700">
+                    <!-- Image overlay -->
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500"></div>
                 </div>
                 {% else %}
-                <div class="w-full h-48 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center group-hover:from-blue-600 group-hover:to-purple-700 transition-all duration-500">
-                    <span class="text-white text-4xl group-hover:scale-110 transition-transform duration-300">{{ article.category.icon }}</span>
+                <div class="w-full h-48 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center group-hover:from-blue-600 group-hover:to-purple-700 transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-500"></div>
+                    <span class="text-white text-5xl group-hover:scale-110 transition-transform duration-500 relative z-10">{{ article.category.icon }}</span>
                 </div>
                 {% endif %}
                 
-                <div class="p-6 relative">
-                    <!-- Gradient accent -->
-                    <div class="absolute top-0 left-6 w-1 h-12 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
-                    
-                    <div class="flex items-center mb-3 ml-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 group-hover:bg-blue-200 transition-colors duration-300">
+                <div class="p-8 relative">
+                    <!-- Category badge -->
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="inline-flex items-center px-4 py-2 rounded-2xl text-sm font-bold bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 border border-blue-200/50 group-hover:from-blue-200 group-hover:to-purple-200 transition-all duration-300 shadow-lg">
                             {{ article.category.name }}
                         </span>
-                        <span class="ml-2 text-sm text-gray-500">{{ article.published_date|date:"M d, Y" }}</span>
+                        <span class="text-sm text-gray-500 font-medium group-hover:text-gray-600 transition-colors duration-300">
+                            {{ article.published_date|date:"M d, Y" }}
+                        </span>
                     </div>
                     
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3 ml-4 group-hover:text-gray-800 transition-colors duration-300">
+                    <!-- Article title -->
+                    <h3 class="text-2xl font-black text-gray-900 mb-4 group-hover:text-gray-800 transition-colors duration-300 leading-tight line-clamp-2">
                         {{ article.title }}
                     </h3>
-                    <p class="text-gray-600 mb-4 ml-4 group-hover:text-gray-700 transition-colors duration-300">
-                        {{ article.excerpt|default:article.content|truncatewords:20 }}
+                    
+                    <!-- Article excerpt -->
+                    <p class="text-gray-600 mb-6 group-hover:text-gray-700 transition-colors duration-300 leading-relaxed text-base line-clamp-3">
+                        {{ article.excerpt|default:article.content|truncatewords:25 }}
                     </p>
                     
-                    <div class="flex items-center justify-between ml-4">
-                        <span class="text-sm text-gray-500 group-hover:text-gray-600 transition-colors duration-300">
-                            By {{ article.author }}
-                        </span>
+                    <!-- Author and CTA -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100/50">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center text-white text-sm font-bold mr-3 shadow-lg">
+                                {{ article.author|first|upper }}
+                            </div>
+                            <span class="text-sm text-gray-600 font-medium group-hover:text-gray-700 transition-colors duration-300">
+                                By {{ article.author }}
+                            </span>
+                        </div>
                         <a href="{% url 'advisory_detail' article.id %}" 
-                           class="group/link text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2 transition-all duration-300">
+                           class="group/link flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl font-bold hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                             Read More
-                            <i class="fas fa-arrow-right group-hover/link:translate-x-1 transition-transform duration-300"></i>
+                            <svg class="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
                         </a>
                     </div>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-full text-center py-12 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50">
+            <!-- Enhanced Empty State -->
+            <div class="col-span-full text-center py-20 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50">
                 <div class="max-w-md mx-auto">
-                    <div class="w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="w-24 h-24 bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </div>
-                    <h3 class="text-lg font-medium text-gray-900">No articles yet</h3>
-                    <p class="mt-1 text-gray-500">Check back soon for career advice and resources.</p>
+                    <h3 class="text-2xl font-black text-gray-900 mb-4">No articles yet</h3>
+                    <p class="text-gray-600 text-lg mb-6 font-medium">Check back soon for career advice and resources.</p>
+                    <div class="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-2xl font-bold">
+                        🔄 Coming Soon
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <!-- Stats Section -->
-    <div class="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white shadow-2xl">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="text-center">
-                <div class="text-3xl font-bold mb-1">500+</div>
-                <div class="text-blue-100 text-sm">Career Guides</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-bold mb-1">10K+</div>
-                <div class="text-blue-100 text-sm">Success Stories</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-bold mb-1">98%</div>
-                <div class="text-blue-100 text-sm">Satisfaction Rate</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-bold mb-1">24/7</div>
-                <div class="text-blue-100 text-sm">Expert Support</div>
+    <!-- Stats Section - 2026 Enhanced -->
+    <div class="mt-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-white shadow-3xl relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute -top-10 -left-10 w-20 h-20 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+        
+        <div class="relative">
+            <h3 class="text-2xl font-black text-center mb-12 text-white/90">Our Impact in Numbers</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">500+</div>
+                    <div class="text-blue-100 text-sm font-bold">Career Guides</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">10K+</div>
+                    <div class="text-blue-100 text-sm font-bold">Success Stories</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">98%</div>
+                    <div class="text-blue-100 text-sm font-bold">Satisfaction Rate</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">24/7</div>
+                    <div class="text-blue-100 text-sm font-bold">Expert Support</div>
+                </div>
             </div>
         </div>
     </div>
@@ -133,22 +205,36 @@
 
 <style>
     .card-hover {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .card-hover:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: translateY(-12px);
+        box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
     }
     
     @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(5deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
     }
     
     .floating {
         animation: float 6s ease-in-out infinite;
+    }
+    
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 </style>
 {% endblock %}
