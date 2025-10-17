@@ -13,6 +13,8 @@ urlpatterns = [
     path("vacancy/<int:pk>/delete/", views.delete_vacancy, name="delete_vacancy"),
 
     
+
+    
 ]
 
 

@@ -13,8 +13,7 @@ admin.site.index_title = "Welcome to JobCentre Admin Portal"
 
 
 # === VACANCY ADMIN ===
-from django.contrib import admin
-from .models import Vacancy, JobSeeker, Application
+
 
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):

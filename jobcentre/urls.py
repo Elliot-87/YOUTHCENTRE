@@ -5,21 +5,22 @@ from jobs.views import referrals_home, referral_partner_detail
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="home"),
 
-    # ✅ Jobs URLs are namespaced
+    # ✅ Jobs URLs (handled inside jobs/urls.py)
     path("jobs/", include(('jobs.urls', 'jobs'), namespace='jobs')),
+
+    # Accounts
     path("accounts/", include("accounts.urls")),
 
-    # Advisory URLs
+    # Advisory
     path("advisory/", advisory_home, name="advisory_home"),
     path("advisory/category/<int:category_id>/", advisory_category, name="advisory_category"),
     path("advisory/article/<int:article_id>/", advisory_detail, name="advisory_detail"),
 
-    # Referrals URLs
+    # Referrals
     path("referrals/", referrals_home, name="referrals_home"),
     path("referrals/partner/<int:partner_id>/", referral_partner_detail, name="referral_partner_detail"),
 ]

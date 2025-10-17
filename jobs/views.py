@@ -10,6 +10,9 @@ from django.core.paginator import Paginator
 
 
 
+def home(request):
+    return render(request, 'home.html')
+
 def vacancy_list(request):
     vacancies = Vacancy.objects.all().order_by('-posted_date')
     paginator = Paginator(vacancies, 6)

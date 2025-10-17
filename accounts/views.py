@@ -4,6 +4,17 @@ from .forms import UserRegistrationForm, EmployerProfileForm
 from django.contrib.auth.decorators import login_required
 from .models import EmployerProfile
 
+
+
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'accounts/profile.html', {
+        'user': request.user
+    })
+
+
 def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)

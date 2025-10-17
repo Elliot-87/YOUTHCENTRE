@@ -9,6 +9,7 @@ import os
 
 
 
+
 class Vacancy(models.Model):
     employer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vacancies")
     title = models.CharField(max_length=200)

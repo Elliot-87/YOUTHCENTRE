@@ -170,7 +170,7 @@
                 <!-- Action Buttons -->
                 <div class="flex space-x-3 ml-4">
                     <a href="{% url 'referral_partner_detail' partner.id %}" 
-                       class="group/btn flex-1 inline-flex justify-center items-center px-6 py-3.5 border border-transparent text-base font-black rounded-2xl shadow-2xl transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-r from-green-500 to-blue-500 text-white hover:from-green-600 hover:to-blue-600 hover:shadow-3xl">
+                       class="group/btn flex-1 inline-flex justify-center items-center px-6 py-3.5 border border-transparent text-base font-black rounded-2xl shadow-2xl transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-r from-green-500 to-blue-500 text-blue-700 hover:from-green-600 hover:to-blue-600 hover:shadow-3xl">
                         View Details
                         <svg class="w-5 h-5 ml-3 group-hover/btn:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -206,7 +206,7 @@
                     {% endif %}
                 </p>
                 {% if selected_category %}
-                <a href="{% url 'referrals_home' %}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-2xl font-bold hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:-translate-y-1 shadow-2xl hover:shadow-3xl">
+                <a href="{% url 'referrals_home' %}" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-blue-700 rounded-2xl font-bold hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:-translate-y-1 shadow-2xl hover:shadow-3xl">
                     🔄 Show All Services
                 </a>
                 {% endif %}
@@ -216,29 +216,29 @@
     </div>
 
     <!-- Stats Section - 2026 Enhanced -->
-    <div class="mt-20 bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 rounded-3xl p-12 text-white shadow-3xl relative overflow-hidden">
+    <div class="mt-20 bg-blue-500 rounded-3xl p-12 text-white shadow-3xl relative overflow-hidden">
         <!-- Background Elements -->
         <div class="absolute -top-10 -left-10 w-20 h-20 bg-white/10 rounded-full blur-2xl"></div>
         <div class="absolute -bottom-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl"></div>
         
         <div class="relative">
-            <h3 class="text-2xl font-black text-center mb-10 text-white/90">Our Impact in Numbers</h3>
+            <h3 class="text-2xl font-black text-center mb-10 text-blue-100">Our Impact in Numbers</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="text-center group">
                     <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">{{ partners|length }}+</div>
-                    <div class="text-green-100 text-sm font-bold">Trusted Partners</div>
+                    <div class="text-blue-100 text-sm font-bold">Trusted Partners</div>
                 </div>
                 <div class="text-center group">
                     <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">24/7</div>
-                    <div class="text-green-100 text-sm font-bold">Support Available</div>
+                    <div class="text-blue-100 text-sm font-bold">Support Available</div>
                 </div>
                 <div class="text-center group">
                     <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">100%</div>
-                    <div class="text-green-100 text-sm font-bold">Verified Services</div>
+                    <div class="text-blue-100 text-sm font-bold">Verified Services</div>
                 </div>
                 <div class="text-center group">
                     <div class="text-4xl font-black mb-2 group-hover:scale-110 transition-transform duration-300">5K+</div>
-                    <div class="text-green-100 text-sm font-bold">People Helped</div>
+                    <div class="text-blue-100 text-sm font-bold">People Helped</div>
                 </div>
             </div>
         </div>
