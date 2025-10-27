@@ -1,16 +1,300 @@
 <!-- partials/right_sidebar.html -->
 <aside
-  class="xl:block fixed right-4 top-0 h-screen w-64 bg-white/70 backdrop-blur-md overflow-y-auto p-6 space-y-6 z-40 animate-fade-in"
+  class="xl:block fixed right-0 top-0 h-screen w-80 bg-gradient-to-b from-white/90 to-purple-50/30 backdrop-blur-xl overflow-y-auto border-l border-purple-100/50 p-6 space-y-8 z-40 transform translate-x-0 transition-all duration-500 shadow-2xl hover:shadow-3xl scroll-smooth"
 >
-  <h3 class="text-2xl font-black text-purple-700 mb-4">Trending</h3>
+  <!-- Header with Social Media Vibes -->
+  <div class="flex items-center justify-between mb-2">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+        <span class="text-white font-bold text-lg">J</span>
+      </div>
+      <div>
+        <h3 class="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">JobFeed</h3>
+        <p class="text-xs text-gray-500">Trending now</p>
+      </div>
+    </div>
+    <button class="xl:hidden text-gray-400 hover:text-gray-600 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-full">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
 
-  <ul class="space-y-4 text-lg font-semibold text-gray-700">
-    <li><a href="#" class="hover:text-purple-600">#TopCompanies</a></li>
-    <li><a href="#" class="hover:text-purple-600">#TrendingJobs</a></li>
-    <li><a href="#" class="hover:text-purple-600">#Resources</a></li>
-    <li><a href="#" class="hover:text-purple-600">#CareerAdvice</a></li>
-    <li><a href="#" class="hover:text-purple-600">#SkillDevelopment</a></li>
-  </ul>
+  <!-- Scroll Progress Indicator -->
+  <div class="sticky top-0 bg-white/80 backdrop-blur-sm rounded-full mb-4 -mx-2 z-10">
+    <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+      <div id="scrollProgress" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300" style="width: 0%"></div>
+    </div>
+  </div>
 
-  <h4 class="text-lg font-semibold text-gray-600 mb-3"></h4>
+  <!-- Quick Stats -->
+  <div class="grid grid-cols-2 gap-3 p-4 bg-white/50 rounded-2xl border border-purple-100/30 backdrop-blur-sm">
+    <div class="text-center">
+      <div class="text-2xl font-black text-purple-600">2.4K</div>
+      <div class="text-xs text-gray-500">Jobs Today</div>
+    </div>
+    <div class="text-center">
+      <div class="text-2xl font-black text-pink-500">156</div>
+      <div class="text-xs text-gray-500">Hiring Now</div>
+    </div>
+  </div>
+
+  <!-- Trending Hashtags -->
+  <div class="space-y-4">
+    <h4 class="text-lg font-black text-gray-800 flex items-center">
+      <span class="w-2 h-2 bg-purple-500 rounded-full mr-2 animate-pulse"></span>
+      🔥 Trending Tags
+    </h4>
+    
+    <div class="space-y-3">
+      <a href="#" class="group flex items-center justify-between p-3 rounded-2xl hover:bg-white/80 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-purple-100">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">1</div>
+          <span class="font-semibold text-gray-700 group-hover:text-purple-600">#RemoteTechJobs</span>
+        </div>
+        <div class="text-xs text-gray-400 group-hover:text-purple-500">2.3K posts</div>
+      </a>
+      
+      <a href="#" class="group flex items-center justify-between p-3 rounded-2xl hover:bg-white/80 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-purple-100">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">2</div>
+          <span class="font-semibold text-gray-700 group-hover:text-green-600">#AIcareers2026</span>
+        </div>
+        <div class="text-xs text-gray-400 group-hover:text-green-500">1.8K posts</div>
+      </a>
+      
+      <a href="#" class="group flex items-center justify-between p-3 rounded-2xl hover:bg-white/80 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-purple-100">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">3</div>
+          <span class="font-semibold text-gray-700 group-hover:text-orange-600">#Web3Jobs</span>
+        </div>
+        <div class="text-xs text-gray-400 group-hover:text-orange-500">1.5K posts</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Quick Actions - TikTok Style -->
+  <div class="space-y-4">
+    <h4 class="text-lg font-black text-gray-800">Quick Actions</h4>
+    
+    <div class="grid grid-cols-2 gap-3">
+      <button class="p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg transform active:scale-95">
+        📱 Post Job
+      </button>
+      <button class="p-3 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-2xl text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg transform active:scale-95">
+        💼 My CV
+      </button>
+    </div>
+  </div>
+
+  <!-- Live Hiring Events -->
+  <div class="space-y-4">
+    <h4 class="text-lg font-black text-gray-800 flex items-center">
+      <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+      🎯 Live Hiring
+    </h4>
+    
+    <div class="space-y-3">
+      <div class="p-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl border border-red-100">
+        <div class="flex items-center space-x-2 mb-2">
+          <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+          <span class="text-xs font-bold text-red-600">LIVE</span>
+        </div>
+        <div class="text-sm font-semibold text-gray-800">Google Tech Talks</div>
+        <div class="text-xs text-gray-500">Starts in 15min</div>
+      </div>
+      
+      <div class="p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
+        <div class="text-sm font-semibold text-gray-800">Meta Career Day</div>
+        <div class="text-xs text-gray-500">Tomorrow • 2PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suggested Profiles -->
+  <div class="space-y-4">
+    <h4 class="text-lg font-black text-gray-800">People Hiring</h4>
+    
+    <div class="space-y-3">
+      <div class="flex items-center space-x-3 p-2 rounded-xl hover:bg-white/60 transition-all duration-200">
+        <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
+          A
+        </div>
+        <div class="flex-1">
+          <div class="text-sm font-semibold text-gray-800">Amazon Recruiter</div>
+          <div class="text-xs text-gray-500">15 jobs posted</div>
+        </div>
+        <button class="text-xs bg-gray-100 hover:bg-purple-100 text-purple-600 px-2 py-1 rounded-lg transition-colors duration-200">
+          Follow
+        </button>
+      </div>
+      
+      <div class="flex items-center space-x-3 p-2 rounded-xl hover:bg-white/60 transition-all duration-200">
+        <div class="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
+          T
+        </div>
+        <div class="flex-1">
+          <div class="text-sm font-semibold text-gray-800">Tesla Talent</div>
+          <div class="text-xs text-gray-500">8 jobs posted</div>
+        </div>
+        <button class="text-xs bg-gray-100 hover:bg-green-100 text-green-600 px-2 py-1 rounded-lg transition-colors duration-200">
+          Follow
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity Feed -->
+  <div class="space-y-4">
+    <h4 class="text-lg font-black text-gray-800">Activity Feed</h4>
+    
+    <div class="space-y-3">
+      <div class="flex items-start space-x-3 p-3 bg-white/50 rounded-2xl border border-gray-100">
+        <div class="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex-shrink-0"></div>
+        <div class="flex-1">
+          <div class="text-sm text-gray-700">
+            <span class="font-semibold">Sarah M.</span> applied to Senior UX Designer
+          </div>
+          <div class="text-xs text-gray-400 mt-1">2 minutes ago</div>
+        </div>
+      </div>
+      
+      <div class="flex items-start space-x-3 p-3 bg-white/50 rounded-2xl border border-gray-100">
+        <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex-shrink-0"></div>
+        <div class="flex-1">
+          <div class="text-sm text-gray-700">
+            <span class="font-semibold">TechStart Inc.</span> posted 3 new jobs
+          </div>
+          <div class="text-xs text-gray-400 mt-1">1 hour ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top/Bottom Buttons -->
+  <div class="sticky bottom-0 bg-gradient-to-t from-white to-transparent pt-4 pb-2 -mx-2 px-2 flex justify-between">
+    <button onclick="scrollToTop()" class="flex items-center space-x-2 text-xs text-gray-500 hover:text-purple-600 transition-colors duration-200 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full border border-gray-200">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+      </svg>
+      <span>Top</span>
+    </button>
+    
+    <button onclick="scrollToBottom()" class="flex items-center space-x-2 text-xs text-gray-500 hover:text-purple-600 transition-colors duration-200 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full border border-gray-200">
+      <span>Bottom</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <div class="pt-4 border-t border-gray-200/50">
+    <div class="flex space-x-4 justify-center">
+      <button class="text-gray-400 hover:text-purple-600 transition-colors duration-200">
+        <span class="text-lg">⚙️</span>
+      </button>
+      <button class="text-gray-400 hover:text-purple-600 transition-colors duration-200">
+        <span class="text-lg">🔔</span>
+      </button>
+      <button class="text-gray-400 hover:text-purple-600 transition-colors duration-200">
+        <span class="text-lg">👤</span>
+      </button>
+    </div>
+  </div>
 </aside>
+
+<script>
+// Scroll progress indicator
+const sidebar = document.querySelector('aside');
+const scrollProgress = document.getElementById('scrollProgress');
+
+sidebar.addEventListener('scroll', () => {
+  const scrollTop = sidebar.scrollTop;
+  const scrollHeight = sidebar.scrollHeight - sidebar.clientHeight;
+  const scrollPercentage = (scrollTop / scrollHeight) * 100;
+  scrollProgress.style.width = scrollPercentage + '%';
+});
+
+// Scroll to top function
+function scrollToTop() {
+  sidebar.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Scroll to bottom function
+function scrollToBottom() {
+  sidebar.scrollTo({
+    top: sidebar.scrollHeight,
+    behavior: 'smooth'
+  });
+}
+
+// Auto-hide scroll indicators when at top/bottom
+sidebar.addEventListener('scroll', () => {
+  const scrollTop = sidebar.scrollTop;
+  const scrollHeight = sidebar.scrollHeight - sidebar.clientHeight;
+  
+  const topBtn = document.querySelector('button[onclick="scrollToTop()"]');
+  const bottomBtn = document.querySelector('button[onclick="scrollToBottom()"]');
+  
+  if (scrollTop === 0) {
+    topBtn.classList.add('opacity-50');
+  } else {
+    topBtn.classList.remove('opacity-50');
+  }
+  
+  if (scrollTop >= scrollHeight - 10) {
+    bottomBtn.classList.add('opacity-50');
+  } else {
+    bottomBtn.classList.remove('opacity-50');
+  }
+});
+</script>
+
+<style>
+/* Custom scrollbar styling */
+aside::-webkit-scrollbar {
+  width: 6px;
+}
+
+aside::-webkit-scrollbar-track {
+  background: rgba(243, 244, 246, 0.5);
+  border-radius: 10px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #8b5cf6, #ec4899);
+  border-radius: 10px;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #7c3aed, #db2777);
+}
+
+/* Smooth scrolling */
+aside {
+  scroll-behavior: smooth;
+}
+
+/* Fade effect at bottom to indicate more content */
+aside::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide fade when at bottom */
+aside.scrolled-to-bottom::after {
+  opacity: 0;
+}
+</style>

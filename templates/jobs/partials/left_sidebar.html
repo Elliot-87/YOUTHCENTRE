@@ -1,17 +1,85 @@
- <!-- Right Sidebar -->
-    <aside class="lg:col-span-2">
-      <div class="px-4 py-6 sticky top-6 bg-white rounded-lg shadow">
-        <h3 class="text-lg font-bold text-gray-700 mb-4">Right Sidebar</h3>
-        <ul class="space-y-2">
-          <li>
-            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-purple-100 hover:text-purple-600">Top Companies</a>
-          </li>
-          <li>
-            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-purple-100 hover:text-purple-600">Trending Jobs</a>
-          </li>
-          <li>
-            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-purple-100 hover:text-purple-600">Resources</a>
-          </li>
+<!-- templates/jobs/partials/left_sidebar.html -->
+<!-- JobCentre Sidebar - Desktop & Mobile -->
+<aside
+    x-data="{ sidebarOpen: false }"
+    class="flex flex-col fixed left-0 top-0 h-screen w-64 bg-white/95 backdrop-blur-md shadow-lg p-6 z-40 xl:block hidden">
+
+    <!-- Logo -->
+    <div class="flex items-center mb-8">
+        <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow-md mr-3">
+            <!-- Placeholder for Logo -->
+        </div>
+        <span class="text-2xl font-bold text-gray-900">BCS JobCentre</span>
+    </div>
+
+    <!-- Main Links -->
+    <nav class="flex-1">
+        <ul class="space-y-4 text-gray-700 text-lg font-semibold">
+            <li><a href="#" class="hover:text-blue-600 transition">🏠 Dashboard</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">🔍 Search Jobs</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">📝 Applications</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">📄 CV Builder</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">💼 Company Reviews</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">📢 Job Alerts</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">🎓 Career Advice</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">📚 Skill Development</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">💡 Resources</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">🧑‍💼 Networking</a></li>
+            <li><a href="#" class="hover:text-blue-600 transition">🏆 Top Employers</a></li>
         </ul>
-      </div>
-    </aside>
+    </nav>
+
+    <!-- Footer / Extra Info -->
+    <div class="mt-auto pt-6 border-t border-gray-200 text-gray-500 text-sm">
+        <p>Stay updated with the latest job trends</p>
+        <p class="mt-1">BCS JobCentre &copy; 2026</p>
+    </div>
+</aside>
+
+<!-- Mobile Overlay Sidebar -->
+<aside
+    x-show="sidebarOpen"
+    x-transition
+    @click.away="sidebarOpen = false"
+    class="fixed inset-y-0 left-0 w-64 bg-white/95 backdrop-blur-md shadow-lg p-6 z-50 xl:hidden flex flex-col">
+
+    <button @click="sidebarOpen = false" class="self-end mb-4 text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
+
+    <!-- Logo -->
+    <div class="flex items-center mb-8">
+        <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow-md mr-3">
+            <!-- Placeholder for Logo -->
+        </div>
+        <span class="text-2xl font-bold text-blue-100 hover:text-white">BCS JobCentre</span>
+    </div>
+
+    <!-- Main Links -->
+    <nav class="flex-1 overflow-y-auto">
+        <ul class="space-y-4 text-blue-600 text-lg font-semibold">
+            <li><a href="#" class="hover:text-white">🏠 Dashboard</a></li>
+            <li><a href="#" class="hover:text-white">🔍 Search Jobs</a></li>
+            <li><a href="#" class="hover:text-white">📝 Applications</a></li>
+            <li><a href="#" class="hover:text-white">📄 CV Builder</a></li>
+            <li><a href="#" class="hover:text-white">💼 Company Reviews</a></li>
+            <li><a href="#" class="hover:text-white">📢 Job Alerts</a></li>
+            <li><a href="#" class="hover:text-white">🎓 Career Advice</a></li>
+            <li><a href="#" class="hover:text-white">📚 Skill Development</a></li>
+            <li><a href="#" class="hover:text-white">💡 Resources</a></li>
+            <li><a href="#" class="hover:text-white">🧑‍💼 Networking</a></li>
+            <li><a href="#" class="hover:text-white">🏆 Top Employers</a></li>
+        </ul>
+    </nav>
+
+    <!-- Footer -->
+    <div class="mt-auto pt-6 border-t border-gray-200 text-gray-500 text-sm">
+        <p>Stay updated with the latest job trends</p>
+        <p class="mt-1">BCS JobCentre &copy; 2026</p>
+    </div>
+</aside>
+
+<!-- Mobile Toggle Button (place in base.html / main content) -->
+<button
+    @click="sidebarOpen = true"
+    class="xl:hidden fixed bottom-4 left-4 bg-blue-600 text-white p-3 rounded-full shadow-lg z-50">
+    📋 Menu
+</button>

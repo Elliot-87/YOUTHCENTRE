@@ -69,7 +69,7 @@
 }
 
 body{
-    background: turquoise;
+    background: blue;
 }
 
         /* Social Stack Styles */
@@ -254,7 +254,18 @@ body{
     </div>
 </nav>
 
+<!-- Sidebar (conditionally included) -->
+    <body x-data="{ sidebarOpen: false }" class="bg-gray-50 font-sans">
 
+
+
+    <!-- Desktop + Mobile Sidebar -->
+    {% if request.path|slice:":6" == "/jobs/" %}
+        {% include 'jobs/partials/left_sidebar.html' %}
+    {% endif %}
+
+ 
+</body>
 
 
 

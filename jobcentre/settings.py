@@ -6,6 +6,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# Allow iframe embedding for same origin
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Or disable completely for development
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+# Also add this for modern browsers
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "your-secret-key"
 
