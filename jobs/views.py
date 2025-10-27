@@ -10,6 +10,26 @@ from django.core.paginator import Paginator
 
 
 
+def messages_placeholder(request):
+    return render(request, 'jobs/messages.html', {})  # create this template
+
+
+def messages_placeholder(request):
+    """Placeholder page for the internal messaging feature."""
+    return render(request, "pages/messages_placeholder.html")
+
+
+def events_placeholder(request):
+    """Placeholder page for Career Events."""
+    return render(request, "pages/events_placeholder.html")
+
+def skills_placeholder(request):
+    """Placeholder page for Skill Builder."""
+    return render(request, "pages/skills_placeholder.html")
+
+
+
+
 def home(request):
     return render(request, 'home.html')
 
