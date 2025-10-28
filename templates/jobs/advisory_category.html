@@ -17,8 +17,8 @@
     <!-- Category Header -->
     <div class="text-center mb-12">
         <div class="text-4xl mb-4">{{ category.icon }}</div>
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ category.name }}</h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ category.description }}</p>
+        <h1 class="text-4xl font-bold text-gray-100 mb-4">{{ category.name }}</h1>
+        <p class="text-xl text-gray-100 max-w-3xl mx-auto">{{ category.description }}</p>
     </div>
 
     <!-- Articles Grid -->
@@ -35,18 +35,18 @@
             
             <div class="p-6">
                 <div class="flex items-center mb-3">
-                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-100">
                         {{ article.category.name }}
                     </span>
-                    <span class="ml-2 text-sm text-gray-500">{{ article.published_date|date:"M d, Y" }}</span>
+                    <span class="ml-2 text-sm text-gray-100">{{ article.published_date|date:"M d, Y" }}</span>
                 </div>
                 
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ article.title }}</h3>
+                <h3 class="text-xl font-semibold text-gray-100 mb-3">{{ article.title }}</h3>
                 <p class="text-gray-600 mb-4">{{ article.excerpt|default:article.content|truncatewords:20 }}</p>
                 
                 <div class="flex items-center justify-between">
-                    <span class="text-sm text-gray-500">By {{ article.author }}</span>
-                    <a href="{% url 'advisory_detail' article.id %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    <span class="text-sm text-gray-100">By {{ article.author }}</span>
+                    <a href="{% url 'advisory_detail' article.id %}" class="text-blue-100 hover:text-blue-200 font-medium">
                         Read More →
                     </a>
                 </div>
@@ -54,12 +54,12 @@
         </div>
         {% empty %}
         <div class="col-span-full text-center py-12">
-            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="mx-auto h-12 w-12 text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <h3 class="mt-2 text-lg font-medium text-gray-900">No articles in this category yet</h3>
             <p class="mt-1 text-gray-500">Check back soon for new content in {{ category.name }}.</p>
-            <a href="{% url 'advisory_home' %}" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200">
+            <a href="{% url 'advisory_home' %}" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-100 bg-blue-100 hover:bg-blue-200">
                 Browse All Categories
             </a>
         </div>
